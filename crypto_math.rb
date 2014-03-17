@@ -23,7 +23,7 @@ class String
 		binary_op(other) {|a, b| a&b}
 	end
 
-	def &(other)
+	def |(other)
 		binary_op(other) {|a, b| a|b}
 	end
 
