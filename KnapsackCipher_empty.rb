@@ -41,3 +41,6 @@ sup = SuperKnapsack.new([2, 3, 7, 14, 30, 57, 120, 251])
 
 carray = KnapsackCipher.encrypt("Hello World!", sup.to_general(41, 491))
 KnapsackCipher.decrypt(carray, sup, 41, 491)
+
+carray = KnapsackCipher.encrypt("Pay in\n 1 hour")
+KnapsackCipher.decrypt(carray)

@@ -34,9 +34,14 @@ class String
     binary_op(other) {|a, b| a|b}
   end
 
-  # returns string as an array of ascii numbers in binary
-  def unpack_bi()
+  # LEGACY: returns string as an array of ascii numbers in binary
+  def unpack_bi
     self.unpack("U*").map {|i| i.to_s(2)}
+  end
+
+  # Returns string as an array of ascii numbers in binary
+  def to_bi_a
+    self.chars.map {|c| c.ord.to_s(2)}
   end
 end
 
