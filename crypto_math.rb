@@ -54,8 +54,8 @@ class SuperKnapsack < Array
   def initialize(arr)
     arr.each.with_index do |a, i|
       unless i==0
-        if (a <= self.class.array_sum(arr[0..i-1])) then
-          raise(ArgumentError, "not superincreasing at index #{i}")
+        if (a <= self.class.array_sum(arr[0..i-1])) then 
+          raise(ArgumentError, "not superincreasing at index #{i}") 
         end
       end
       self.clear
@@ -63,14 +63,15 @@ class SuperKnapsack < Array
     end
   end
 
-  def self.primes?(m,n)
+  def primes?(m,n)
     return Prime.prime?(m) && Prime.prime?(n)
   end
 
   def to_general(m, n)
-    argError = "arguments must both be prime" if (!self.class.primes?(m,n))
+    argError = "arguments must both be prime" if (!primes?(m,n)) 
     argError = "#{n} is smaller than superincreasing knapsack" if n <= self.last
-    raise(ArgumentError, argError) unless argError.nil?
+    raise(ArgumentError, argError) unless argError.nil? 
     self.map {|a| (a*m)%n }
   end
 end
+
