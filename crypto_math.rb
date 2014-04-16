@@ -43,6 +43,22 @@ class String
   def to_bi_a
     self.chars.map {|c| c.ord.to_s(2)}
   end
+
+  # modified from: https://gist.github.com/geoffgarside/747242
+  def word_entropy
+    len = self.chars.count.to_f
+    log2 = Math.log(2)
+    
+    counts = self.chars.inject({}) do |h,c|
+      h[c] = (h[c] || 0) + 1
+      h
+    end
+   
+    counts.inject(0) do |entropy, pair|
+      frequency = (pair[1] / len)
+      entropy = (frequency * (Math.log(frequency) / log2))
+    end.abs
+  end
 end
 
 class SuperKnapsack < Array
