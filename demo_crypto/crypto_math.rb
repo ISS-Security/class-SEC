@@ -1,7 +1,5 @@
 require 'Prime'
 
-# Adds a factorial function to Ruby's Integer object
-# code from: http://rosettacode.org/wiki/Factorial#Ruby
 class Integer
   def factorial
     (1..self).reduce(:*) || 1
@@ -34,11 +32,6 @@ class String
     binary_op(other) {|a, b| a|b}
   end
 
-  # LEGACY: returns string as an array of ascii numbers in binary
-  def unpack_bi
-    self.unpack("U*").map {|i| i.to_s(2)}
-  end
-
   # Returns string as an array of ascii numbers in binary
   def to_bi_a
     self.chars.map {|c| c.ord.to_s(2)}
@@ -48,12 +41,12 @@ class String
   def word_entropy
     len = self.chars.count.to_f
     log2 = Math.log(2)
-    
+
     counts = self.chars.inject({}) do |h,c|
       h[c] = (h[c] || 0) + 1
       h
     end
-   
+
     counts.inject(0) do |entropy, pair|
       frequency = (pair[1] / len)
       entropy = (frequency * (Math.log(frequency) / log2))
@@ -70,8 +63,8 @@ class SuperKnapsack < Array
   def initialize(arr)
     arr.each.with_index do |a, i|
       unless i==0
-        if (a <= self.class.array_sum(arr[0..i-1])) then 
-          raise(ArgumentError, "not superincreasing at index #{i}") 
+        if (a <= self.class.array_sum(arr[0..i-1])) then
+          raise(ArgumentError, "not superincreasing at index #{i}")
         end
       end
       self.clear
@@ -84,10 +77,9 @@ class SuperKnapsack < Array
   end
 
   def to_general(m, n)
-    argError = "arguments must both be prime" if (!primes?(m,n)) 
+    argError = "arguments must both be prime" if (!primes?(m,n))
     argError = "#{n} is smaller than superincreasing knapsack" if n <= self.last
-    raise(ArgumentError, argError) unless argError.nil? 
+    raise(ArgumentError, argError) unless argError.nil?
     self.map {|a| (a*m)%n }
   end
 end
-
