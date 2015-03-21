@@ -1,3 +1,5 @@
+require 'benchmark'
+
 # Benchmarking of functional-map vs. procedural-for
 n = 10_000
 arr_length = 1_000
@@ -6,7 +8,7 @@ arr = (1..arr_length).map { |i| i }
 Benchmark.bmbm do |bench|
   bench.report('map') do
     n.times do
-      arr.map { |i| i*2 }
+      res = arr.map { |i| i*2 }
     end
   end
 
