@@ -1,7 +1,7 @@
 require 'openssl'
 
-# code adapted from: 
-#  http://www.ruby-doc.org/stdlib-1.9.3/libdoc/openssl/rdoc/OpenSSL/Cipher.html
+# code adapted from:
+#  http://ruby-doc.org/stdlib-2.0.0/libdoc/openssl/rdoc/OpenSSL/Cipher.html
 def AES_demo(plaintext)
   puts "plaintext: \"#{plaintext}\""
 
@@ -9,8 +9,10 @@ def AES_demo(plaintext)
   cipher.encrypt
   key = cipher.random_key
   iv = cipher.random_iv
-  puts "symmetric key:\t\t #{key.unpack("H*")}"
-  puts "initialization vector:\t #{iv.unpack("H*")}"
+  puts "symmetric key (ascii):\t\t #{key}"
+  puts "symmetric key (hex  ):\t\t #{key.unpack("H*")}"
+  puts "initialization vector (ascii):\t #{iv}"
+  puts "initialization vector (hex):\t #{iv.unpack("H*")}"
 
   puts "encrypting..."
   ciphertext = cipher.update(plaintext) + cipher.final
@@ -28,7 +30,7 @@ def AES_demo(plaintext)
   puts "match: #{plaintext == plain}" #=> true
 end
 
-# code adapted from: 
+# code adapted from:
 #  http://ruby-doc.org/stdlib-1.9.3/libdoc/openssl/rdoc/OpenSSL/Digest.html
 def SHA256_demo(plaintext)
   sha256 = OpenSSL::Digest::SHA256.new
