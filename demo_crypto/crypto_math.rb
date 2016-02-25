@@ -1,5 +1,3 @@
-require 'Prime'
-
 module CryptoMath
   refine Fixnum do
     def factorial
@@ -53,35 +51,5 @@ module CryptoMath
         entropy = (frequency * (Math.log(frequency) / log2))
       end.abs
     end
-  end
-end
-
-class SuperKnapsack < Array
-
-  def self.array_sum(arr)
-    arr.reduce (:+)
-  end
-
-  def initialize(arr)
-    arr.each.with_index do |a, i|
-      unless i==0
-        if (a <= self.class.array_sum(arr[0..i-1])) then
-          raise(ArgumentError, "not superincreasing at index #{i}")
-        end
-      end
-      self.clear
-      self.concat arr
-    end
-  end
-
-  def primes?(m,n)
-    return Prime.prime?(m) && Prime.prime?(n)
-  end
-
-  def to_general(m, n)
-    argError = "arguments must both be prime" if (!primes?(m,n))
-    argError = "#{n} is smaller than superincreasing knapsack" if n <= self.last
-    raise(ArgumentError, argError) unless argError.nil?
-    self.map {|a| (a*m)%n }
   end
 end
