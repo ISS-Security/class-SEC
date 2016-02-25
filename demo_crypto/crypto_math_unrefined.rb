@@ -35,19 +35,30 @@ class String
     self.chars.map {|c| c.ord.to_s(2)}
   end
 
-  # modified from: https://gist.github.com/geoffgarside/747242
-  def word_entropy
-    len = self.chars.count.to_f
-    log2 = Math.log(2)
-
-    counts = self.chars.reduce({}) do |h,c|
-      h[c] = (h[c] || 0) + 1
-      h
+  # copied from: https://github.com/emonti/rbkb/blob/a6d35c0fd785bae135034502b1d07ed626aebde5/lib/rbkb/extends/string.rb#L163
+  def entropy
+    e = 0
+    sz = self.bytesize.to_f
+    b = self.bytes
+    0.upto(255) do |i|
+      x = b.count(i)/sz
+      if x > 0
+        e += - x * (Math.log(x)/Math.log(2))
+      end
     end
-
-    counts.reduce(0) do |entropy, pair|
-      frequency = (pair[1] / len)
-      entropy = (frequency * (Math.log(frequency) / log2))
-    end.abs
+    e
   end
+end
+
+def entropy(str)
+  e = 0
+  sz = str.bytesize.to_f
+  b = str.bytes
+  0.upto(255) do |i|
+    x = b.count(i)/sz
+    if x > 0
+      e += - x * (Math.log(x)/Math.log(2))
+    end
+  end
+  e
 end
