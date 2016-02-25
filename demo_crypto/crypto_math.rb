@@ -41,12 +41,12 @@ module CryptoMath
       len = self.chars.count.to_f
       log2 = Math.log(2)
 
-      counts = self.chars.inject({}) do |h,c|
+      counts = self.chars.reduce({}) do |h,c|
         h[c] = (h[c] || 0) + 1
         h
       end
 
-      counts.inject(0) do |entropy, pair|
+      counts.reduce(0) do |entropy, pair|
         frequency = (pair[1] / len)
         entropy = (frequency * (Math.log(frequency) / log2))
       end.abs
