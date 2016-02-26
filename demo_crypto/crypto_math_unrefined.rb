@@ -2,11 +2,6 @@ class Fixnum
   def factorial
     (1..self).reduce(:*) || 1
   end
-
-  # demo method -- perhaps just use .to_s(2) in regular use
-  def to_bi
-    self.to_s(2)
-  end
 end
 
 class String
